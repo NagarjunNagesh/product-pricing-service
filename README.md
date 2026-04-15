@@ -4,7 +4,7 @@ Spring Boot REST service that returns the applicable product price for a given a
 
 ## Hexagonal + DDD Structure
 
-The project is organized following the Baeldung style of three layers:
+The project is organized following the [Baeldung style](https://www.baeldung.com/hexagonal-architecture-ddd-spring) of three layers:
 
 - `domain` (inside): business model, policies, and domain ports
 - `application` (outside): REST API controllers and request/response handling
@@ -42,7 +42,7 @@ Endpoint:
 
 Query parameters:
 
-- `applicationDate` (ISO date-time, e.g. `2020-06-14T16:00:00`)
+- `startDate` (ISO date-time, e.g. `2020-06-14T16:00:00`)
 - `productId` (e.g. `35455`)
 - `brandId` (e.g. `1`)
 
@@ -59,7 +59,7 @@ Response:
 Example request:
 
 ```bash
-curl "http://localhost:8080/api/prices?applicationDate=2020-06-14T16:00:00&productId=35455&brandId=1"
+curl "http://localhost:8080/api/prices?startDate=2020-06-14T16:00:00&productId=35455&brandId=1"
 ```
 
 ## Local Run

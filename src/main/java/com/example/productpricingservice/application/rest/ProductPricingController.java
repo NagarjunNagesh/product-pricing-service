@@ -27,19 +27,20 @@ public class ProductPricingController {
     @GetMapping
     @Operation(summary = "Get the applicable price for product and brand on a given date")
     public ProductPriceResponse getApplicablePrice(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime applicationDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam Long productId,
             @RequestParam Long brandId) {
 
-        ProductPrice selectedPrice = productPriceService.getApplicablePrice(applicationDate, productId, brandId);
+        ProductPrice selectedPrice = productPriceService.getApplicablePrice(startDate, productId, brandId);
 
-        return new ProductPriceResponse(
-                selectedPrice.productId(),
-                selectedPrice.brandId(),
-                selectedPrice.priceList(),
-                selectedPrice.startDate(),
-                selectedPrice.endDate(),
-                selectedPrice.price(),
-                selectedPrice.currency());
+        return ProductPriceResponse.builder()
+                .productId(selectedPrice.productId())
+                .brandId(selectedPrice.brandId())
+                .priceList(selectedPrice.priceList())
+                .startDate(selectedPrice.startDate())
+                .endDate(selectedPrice.endDate())
+                .price(selectedPrice.price())
+                .currency(selectedPrice.currency())
+                .build();
     }
 }

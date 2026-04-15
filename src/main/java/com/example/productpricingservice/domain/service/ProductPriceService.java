@@ -6,5 +6,5 @@ import java.time.LocalDateTime;
 
 public interface ProductPriceService {
 
-    ProductPrice getApplicablePrice(LocalDateTime applicationDate, Long productId, Long brandId);
+    ProductPrice getApplicablePrice(LocalDateTime startDate, Long productId, Long brandId);
 }
