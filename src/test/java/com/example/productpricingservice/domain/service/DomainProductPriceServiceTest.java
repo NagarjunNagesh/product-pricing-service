@@ -32,7 +32,7 @@ class DomainProductPriceServiceTest {
 
     @Test
     void shouldReturnSelectedPriceWhenRepositoryHasCandidates() {
-        LocalDateTime applicationDate = LocalDateTime.of(2020, 6, 14, 10, 0);
+        LocalDateTime startDate = LocalDateTime.of(2020, 6, 14, 10, 0);
         Long productId = 35455L;
         Long brandId = 1L;
 
@@ -45,29 +45,29 @@ class DomainProductPriceServiceTest {
 
         List<ProductPrice> candidates = List.of(expected);
 
-        when(repository.findApplicablePrices(applicationDate, productId, brandId)).thenReturn(candidates);
+        when(repository.findApplicablePrices(startDate, productId, brandId)).thenReturn(candidates);
         when(policy.selectApplicable(candidates)).thenReturn(Optional.of(expected));
 
-        ProductPrice actual = service.getApplicablePrice(applicationDate, productId, brandId);
+        ProductPrice actual = service.getApplicablePrice(startDate, productId, brandId);
 
         assertEquals(expected, actual);
-        verify(repository).findApplicablePrices(applicationDate, productId, brandId);
+        verify(repository).findApplicablePrices(startDate, productId, brandId);
         verify(policy).selectApplicable(candidates);
     }
 
     @Test
     void shouldThrowWhenNoPriceFound() {
-        LocalDateTime applicationDate = LocalDateTime.of(2020, 6, 14, 10, 0);
+        LocalDateTime startDate = LocalDateTime.of(2020, 6, 14, 10, 0);
         Long productId = 35455L;
         Long brandId = 1L;
 
         List<ProductPrice> empty = List.of();
 
-        when(repository.findApplicablePrices(applicationDate, productId, brandId)).thenReturn(empty);
+        when(repository.findApplicablePrices(startDate, productId, brandId)).thenReturn(empty);
         when(policy.selectApplicable(empty)).thenReturn(Optional.empty());
 
         assertThrows(PriceNotFoundException.class,
-                () -> service.getApplicablePrice(applicationDate, productId, brandId));
+                () -> service.getApplicablePrice(startDate, productId, brandId));
     }
 
     private ProductPrice price(
