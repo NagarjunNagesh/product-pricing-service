@@ -1,21 +1,22 @@
 package com.example.productpricingservice.domain.service;
 
-import com.example.productpricingservice.domain.exception.PriceNotFoundException;
-import com.example.productpricingservice.domain.model.ProductPrice;
-import com.example.productpricingservice.domain.port.ProductPriceRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.example.productpricingservice.domain.exception.PriceNotFoundException;
+import com.example.productpricingservice.domain.model.ProductPrice;
+import com.example.productpricingservice.domain.port.ProductPriceRepository;
 
 class DomainProductPriceServiceTest {
 
@@ -40,8 +41,7 @@ class DomainProductPriceServiceTest {
                 productId, brandId, 1L,
                 LocalDateTime.of(2020, 6, 14, 10, 0),
                 LocalDateTime.of(2020, 6, 14, 18, 30),
-                1, "35.50"
-        );
+                1, "35.50");
 
         List<ProductPrice> candidates = List.of(expected);
 

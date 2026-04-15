@@ -7,12 +7,12 @@ import lombok.Builder;
 
 @Builder
 public record ProductPrice(
-        Long productId,
-        Long brandId,
-        Long priceList,
-        LocalDateTime startDate,
-        LocalDateTime endDate,
-        Integer priority,
-        BigDecimal price,
-        String currency) {
+                Long productId,
+                Long brandId,
+                Long priceList,
+                LocalDateTime startDate,
+                LocalDateTime endDate,
+                Integer priority,
+                BigDecimal price,
+                String currency) {
 }

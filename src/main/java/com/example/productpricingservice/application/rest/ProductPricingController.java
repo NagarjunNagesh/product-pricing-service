@@ -1,19 +1,21 @@
 package com.example.productpricingservice.application.rest;
 
-import com.example.productpricingservice.application.rest.dto.ProductPriceResponse;
-import com.example.productpricingservice.domain.model.ProductPrice;
-import com.example.productpricingservice.domain.service.ProductPriceService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDateTime;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
+import com.example.productpricingservice.application.rest.dto.ProductPriceResponse;
+import com.example.productpricingservice.domain.model.ProductPrice;
+import com.example.productpricingservice.domain.service.ProductPriceService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/prices")
@@ -33,7 +35,8 @@ public class ProductPricingController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam Long productId,
             @RequestParam Long brandId) {
-        log.info("getApplicablePrice called with startDate={}, productId={}, brandId={}", startDate, productId, brandId);
+        log.info("getApplicablePrice called with startDate={}, productId={}, brandId={}", startDate, productId,
+                brandId);
 
         ProductPrice selectedPrice = productPriceService.getApplicablePrice(startDate, productId, brandId);
 

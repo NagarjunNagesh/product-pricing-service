@@ -1,11 +1,12 @@
 package com.example.productpricingservice.infrastructure.config;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 import com.example.productpricingservice.domain.port.ProductPriceRepository;
 import com.example.productpricingservice.domain.service.DomainProductPriceService;
 import com.example.productpricingservice.domain.service.PriceSelectionPolicy;
 import com.example.productpricingservice.domain.service.ProductPriceService;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BeanConfiguration {

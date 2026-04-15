@@ -1,11 +1,11 @@
 package com.example.productpricingservice.domain.service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import com.example.productpricingservice.domain.exception.PriceNotFoundException;
 import com.example.productpricingservice.domain.model.ProductPrice;
 import com.example.productpricingservice.domain.port.ProductPriceRepository;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 public class DomainProductPriceService implements ProductPriceService {
 
