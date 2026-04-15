@@ -1,10 +1,12 @@
 package com.example.productpricingservice.application.rest.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Builder
 @Schema(description = "Price information applicable for the given query parameters")
 public record ProductPriceResponse(
         @Schema(example = "35455") Long productId,
