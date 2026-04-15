@@ -25,7 +25,7 @@ class ProductPricingControllerIT {
     @Test
     void shouldReturnBadRequestForInvalidDateFormat() throws Exception {
         mockMvc.perform(get("/api/prices")
-                .param("startDate", "not-a-date")
+                .param("applicationDateTime", "not-a-date")
                 .param("productId", "1")
                 .param("brandId", "1"))
                 .andExpect(status().isBadRequest())
@@ -35,7 +35,7 @@ class ProductPricingControllerIT {
     @Test
     void shouldReturnNotFoundWhenPriceMissing() throws Exception {
         mockMvc.perform(get("/api/prices")
-                .param("startDate", "2020-06-14T10:00")
+                .param("applicationDateTime", "2020-06-14T10:00")
                 .param("productId", "1")
                 .param("brandId", "1"))
                 .andExpect(status().isNotFound())
@@ -47,7 +47,7 @@ class ProductPricingControllerIT {
     void shouldReturnExpectedPricesForRequirementsScenarios() throws Exception {
         // Test 1: 2020-06-14 10:00 -> priceList 1, price 35.50
         mockMvc.perform(get("/api/prices")
-                .param("startDate", "2020-06-14T10:00")
+                .param("applicationDateTime", "2020-06-14T10:00")
                 .param("productId", "35455")
                 .param("brandId", "1"))
                 .andExpect(status().isOk())
@@ -57,7 +57,7 @@ class ProductPricingControllerIT {
 
         // Test 2: 2020-06-14 16:00 -> priceList 2, price 25.45
         mockMvc.perform(get("/api/prices")
-                .param("startDate", "2020-06-14T16:00")
+                .param("applicationDateTime", "2020-06-14T16:00")
                 .param("productId", "35455")
                 .param("brandId", "1"))
                 .andExpect(status().isOk())
@@ -67,7 +67,7 @@ class ProductPricingControllerIT {
 
         // Test 3: 2020-06-14 21:00 -> priceList 1, price 35.50
         mockMvc.perform(get("/api/prices")
-                .param("startDate", "2020-06-14T21:00")
+                .param("applicationDateTime", "2020-06-14T21:00")
                 .param("productId", "35455")
                 .param("brandId", "1"))
                 .andExpect(status().isOk())
@@ -77,7 +77,7 @@ class ProductPricingControllerIT {
 
         // Test 4: 2020-06-15 10:00 -> priceList 3, price 30.50
         mockMvc.perform(get("/api/prices")
-                .param("startDate", "2020-06-15T10:00")
+                .param("applicationDateTime", "2020-06-15T10:00")
                 .param("productId", "35455")
                 .param("brandId", "1"))
                 .andExpect(status().isOk())
@@ -87,7 +87,7 @@ class ProductPricingControllerIT {
 
         // Test 5: 2020-06-16 21:00 -> priceList 4, price 38.95
         mockMvc.perform(get("/api/prices")
-                .param("startDate", "2020-06-16T21:00")
+                .param("applicationDateTime", "2020-06-16T21:00")
                 .param("productId", "35455")
                 .param("brandId", "1"))
                 .andExpect(status().isOk())
@@ -97,7 +97,7 @@ class ProductPricingControllerIT {
 
         // Test 6: 2020-06-16 15:00 -> priceList 4, price 38.95
         mockMvc.perform(get("/api/prices")
-                .param("startDate", "2020-06-15T15:00")
+                .param("applicationDateTime", "2020-06-15T15:00")
                 .param("productId", "35455")
                 .param("brandId", "1"))
                 .andExpect(status().isOk())
@@ -107,7 +107,7 @@ class ProductPricingControllerIT {
 
         // Test 7: 2020-06-13 10:00 -> priceList 1, price 35.50
         mockMvc.perform(get("/api/prices")
-                .param("startDate", "2020-06-13T10:00")
+                .param("applicationDateTime", "2020-06-13T10:00")
                 .param("productId", "35455")
                 .param("brandId", "1"))
                 .andExpect(status().isNotFound())
