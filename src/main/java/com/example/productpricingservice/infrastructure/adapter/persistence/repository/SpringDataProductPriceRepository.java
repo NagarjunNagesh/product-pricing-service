@@ -10,9 +10,11 @@ import com.example.productpricingservice.infrastructure.adapter.persistence.enti
 
 public interface SpringDataProductPriceRepository extends JpaRepository<ProductPriceEntity, Long> {
 
-  // Select prices where brand = ?brandId, product = ?productId, startDate <=
-  // ?startDate and endDate >= ?startDate, ordered by priority desc and startDate
-  // desc
+  /*
+    Select prices where brand = ?brandId, product = ?productId, startDate <=
+     ?startDate and endDate >= ?startDate, ordered by priority desc and startDate
+     desc
+  */
   @Query("""
       SELECT p FROM ProductPriceEntity p
       WHERE p.brandId = :brandId

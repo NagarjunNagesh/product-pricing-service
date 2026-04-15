@@ -6,5 +6,5 @@ import com.example.productpricingservice.domain.model.ProductPrice;
 
 public interface ProductPriceService {
 
-    ProductPrice getApplicablePrice(LocalDateTime startDate, Long productId, Long brandId);
+    ProductPrice getApplicablePrice(LocalDateTime applicationDateTime, Long productId, Long brandId);
 }

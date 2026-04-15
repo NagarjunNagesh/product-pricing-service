@@ -7,5 +7,5 @@ import com.example.productpricingservice.domain.model.ProductPrice;
 
 public interface ProductPriceRepository {
 
-    List<ProductPrice> findApplicablePrices(LocalDateTime startDate, Long productId, Long brandId);
+    List<ProductPrice> findApplicablePrices(LocalDateTime applicationDateTime, Long productId, Long brandId);
 }

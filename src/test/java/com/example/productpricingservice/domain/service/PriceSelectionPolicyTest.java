@@ -61,6 +61,10 @@ class PriceSelectionPolicyTest {
                 Optional<ProductPrice> selected = policy.selectApplicable(List.of());
 
                 assertTrue(selected.isEmpty());
+
+                 Optional<ProductPrice> selectedNull = policy.selectApplicable(null);
+
+                assertTrue(selectedNull.isEmpty());
         }
 
         private ProductPrice price(

@@ -32,13 +32,13 @@ public class ProductPricingController {
     @GetMapping
     @Operation(summary = "Get the applicable price for product and brand on a given date")
     public ProductPriceResponse getApplicablePrice(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime applicationDateTime,
             @RequestParam Long productId,
             @RequestParam Long brandId) {
-        log.info("getApplicablePrice called with startDate={}, productId={}, brandId={}", startDate, productId,
+        log.info("getApplicablePrice called with applicationDateTime={}, productId={}, brandId={}", applicationDateTime, productId,
                 brandId);
 
-        ProductPrice selectedPrice = productPriceService.getApplicablePrice(startDate, productId, brandId);
+        ProductPrice selectedPrice = productPriceService.getApplicablePrice(applicationDateTime, productId, brandId);
 
         log.info("Selected price for productId={}, brandId={} -> {}", productId, brandId, selectedPrice);
 
