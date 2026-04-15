@@ -56,7 +56,7 @@ Endpoint:
 
 Query parameters:
 
-- `startDate` (ISO date-time, e.g. `2020-06-14T16:00:00`)
+- `applicationDateTime` (ISO date-time, e.g. `2020-06-14T16:00:00`) only supports `LocalDateTime` !!
 - `productId` (e.g. `35455`)
 - `brandId` (e.g. `1`)
 
@@ -73,7 +73,7 @@ Response:
 Example request:
 
 ```bash
-curl "http://localhost:8080/api/prices?startDate=2020-06-14T16:00:00&productId=35455&brandId=1"
+curl "http://localhost:8080/api/prices?applicationDateTime=2020-06-14T16:00:00&productId=35455&brandId=1"
 ```
 
 ### Possible Responses
