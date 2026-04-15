@@ -33,6 +33,20 @@ This diagram shows how a GET /api/prices request moves through the hexagonal lay
 
 - [Start Project Guide](docs/START-PROJECT.md)
 
+## Extraction of Data
+
+The Extraction of data for this project relies on two factors.
+
+1. Indexing the table based on the query of brand, product, start date and end date
+1. The repository layer query statement which is as follows:
+
+```
+  Select prices where brand = ?brandId, product = ?productId, startDate <=
+  ?providedDate and endDate >= ?providedDate, ordered by priority desc and startDate
+  desc
+```
+
+This ensure that we retrieve the said product and brand and `start date <= provided date <= end date`
 
 ## API
 
