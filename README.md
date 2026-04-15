@@ -1,105 +1,108 @@
 # Product Pricing Service
 
-A Spring Boot application for managing product pricing with an in-memory H2 database.
+Spring Boot REST service that returns the applicable product price for a given application date, product, and brand.
 
----
+## Hexagonal + DDD Structure
+
+The project is organized following the Baeldung style of three layers:
+
+- `domain` (inside): business model, policies, and domain ports
+- `application` (outside): REST API controllers and request/response handling
+- `infrastructure` (outside): Spring configuration and persistence adapters
+
+Current package layout:
+
+- `com.example.productpricingservice.domain.model`
+- `com.example.productpricingservice.domain.port`
+- `com.example.productpricingservice.domain.service`
+- `com.example.productpricingservice.domain.exception`
+- `com.example.productpricingservice.application.rest`
+- `com.example.productpricingservice.application.rest.dto`
+- `com.example.productpricingservice.infrastructure.adapter.persistence`
+- `com.example.productpricingservice.infrastructure.adapter.persistence.entity`
+- `com.example.productpricingservice.infrastructure.adapter.persistence.repository`
+- `com.example.productpricingservice.infrastructure.config`
+
+## Request Flow Diagram
+
+This diagram shows how a GET /api/prices request moves through the hexagonal layers, how the applicable price is selected, and how the response returns to the client.
+
+![Request flow](docs/request-flow.svg)
+
+## Project Starup Guide
+
+- [Start Project Guide](docs/START-PROJECT.md)
 
 
-## Option 1: Run with Spring Boot Dashboard in VS Code
+## API
 
-### Prerequisites
-- VS Code with the "Spring Boot Extension Pack" installed
-- Java 21 or later
-- Gradle (wrapper included)
+Endpoint:
 
-Ensure that you set the `DB_PASSWORD` if required, else defaults to `sa`
----
+- `GET /api/prices`
 
-## Option 2: Docker Spin Up
+Query parameters:
 
-### Prerequisites
-- Docker installed on your machine
-- Uncomment `spring.h2.console.settings.web-allow-others=true` in application.properties to access the h2-console via browser.
+- `applicationDate` (ISO date-time, e.g. `2020-06-14T16:00:00`)
+- `productId` (e.g. `35455`)
+- `brandId` (e.g. `1`)
 
-### Steps
-1. **Build the Docker image** (from the project root):
-   ```sh
-   docker build -t product-pricing-service .
-   ```
+Response:
 
-2. **Run the Docker container** (with environment variable):
-   ```sh
-   docker run --name product-pricing-service -e DB_PASSWORD=sa -p 8080:8080 product-pricing-service
-   ```
-   - `--name product-pricing-service`: Names your container for easy management.
-   - `-e DB_PASSWORD=sa`: Sets the database password environment variable (change as needed).
-   - `-p 8080:8080`: Maps container port 8080 to your host.
+- `productId`
+- `brandId`
+- `priceList`
+- `startDate`
+- `endDate`
+- `price`
+- `currency`
 
-3. **Access the application:**
-   - App: [http://localhost:8080](http://localhost:8080)
-   - H2 Console: [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
-   - Swagger UI: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+Example request:
 
----
+```bash
+curl "http://localhost:8080/api/prices?applicationDate=2020-06-14T16:00:00&productId=35455&brandId=1"
+```
 
-## Option 3: Local Spin Up (No Docker)
+## Local Run
 
-### Prerequisites
-- Java 21 or later
-- Gradle (wrapper included)
+Prerequisites:
 
-### Steps
-1. **Clone the repository:**
-   ```sh
-   git clone <your-repo-url>
-   cd product-pricing-service
-   ```
+- Java 21+
+- Gradle wrapper (`gradlew` / `gradlew.bat`)
 
-2. **Set the DB_PASSWORD environment variable:**
-   - On Windows (PowerShell):
-     ```powershell
-     $env:DB_PASSWORD="your_password"
-     ```
-   - On Windows (cmd):
-     ```cmd
-     set DB_PASSWORD=your_password
-     ```
-   - On Linux/macOS:
-     ```sh
-     export DB_PASSWORD=your_password
-     ```
+Build and test:
 
-3. **Build the project:**
-   ```sh
-   ./gradlew build
-   ```
-   (On Windows, use `gradlew.bat build`)
+```bash
+./gradlew clean test
+```
 
-4. **Run the application:**
-   ```sh
-   ./gradlew bootRun
-   ```
-   (On Windows, use `gradlew.bat bootRun`)
+Windows:
 
-5. **Access the application:**
-   - App: [http://localhost:8080](http://localhost:8080)
-   - H2 Console: [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
-   - Swagger UI: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+```powershell
+.\gradlew.bat clean test
+```
 
----
+Run application:
 
-## Notes
-- The `DB_PASSWORD` environment variable is required for both Docker and local runs. If not set, the default is blank.
-- The H2 database is in-memory and resets on every restart.
-- For security, do not enable H2 remote access in production.
-   ./gradlew bootRun
-   ```
-   (On Windows, use `gradlew.bat bootRun`)
+```bash
+./gradlew bootRun
+```
 
-## Accessing the Application
-- The app will start on [http://localhost:8080](http://localhost:8080)
-- H2 Console: [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
-- Swagger UI: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+Windows:
 
-## Notes
-- Make sure the `DB_PASSWORD` environment variable is set in the same terminal session before running the app.
+```powershell
+.\gradlew.bat bootRun
+```
+
+## H2 Initialization
+
+The in-memory H2 database is initialized at startup using:
+
+- `src/main/resources/schema.sql`
+- `src/main/resources/data.sql`
+
+
+## Useful URLs
+
+- App: http://localhost:8080
+- Swagger UI: http://localhost:8080/swagger-ui.html
+- H2 Console: http://localhost:8080/h2-console
