@@ -1,3 +1,7 @@
+-- Deletes existing rows to avoid duplicate inserts on application restarts,
+-- then inserts the known fixture rows used by integration tests. (NOT FOR PRODUCTION USE / Only used as it is a demo application)
+DELETE FROM PRICES;
+
 INSERT INTO PRICES (BRAND_ID, START_DATE, END_DATE, PRICE_LIST, PRODUCT_ID, PRIORITY, PRICE, CURR) VALUES
 (1, '2020-06-14 00:00:00', '2020-12-31 23:59:59', 1, 35455, 0, 35.50, 'EUR'),
 (1, '2020-06-14 15:00:00', '2020-06-14 18:30:00', 2, 35455, 1, 25.45, 'EUR'),
