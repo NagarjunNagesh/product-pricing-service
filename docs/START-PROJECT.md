@@ -1,5 +1,3 @@
----
-
 
 ## Option 1: Run with Spring Boot Dashboard in VS Code
 
@@ -9,7 +7,7 @@
 - Gradle (wrapper included)
 
 Ensure that you set the `DB_PASSWORD` if required, else defaults to `sa`
----
+
 
 ## Option 2: Docker Spin Up
 
