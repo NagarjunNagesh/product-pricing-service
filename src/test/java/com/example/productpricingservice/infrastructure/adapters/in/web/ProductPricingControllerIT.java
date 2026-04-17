@@ -1,4 +1,4 @@
-package com.example.productpricingservice.application.rest;
+package com.example.productpricingservice.infrastructure.adapters.in.web;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;

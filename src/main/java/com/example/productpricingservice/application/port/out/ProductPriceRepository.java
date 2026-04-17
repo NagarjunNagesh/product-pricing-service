@@ -1,4 +1,4 @@
-package com.example.productpricingservice.domain.port;
+package com.example.productpricingservice.application.port.out;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.productpricingservice.application.rest;
+package com.example.productpricingservice.infrastructure.adapters.in.web;
 
 import java.time.LocalDateTime;
 
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.productpricingservice.application.rest.dto.ProductPriceResponse;
+import com.example.productpricingservice.infrastructure.adapters.in.web.dto.ProductPriceResponse;
+import com.example.productpricingservice.application.port.in.GetApplicablePriceUseCase;
 import com.example.productpricingservice.domain.model.ProductPrice;
-import com.example.productpricingservice.domain.service.ProductPriceService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,10 +23,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class ProductPricingController {
     private static final Logger log = LoggerFactory.getLogger(ProductPricingController.class);
 
-    private final ProductPriceService productPriceService;
+    private final GetApplicablePriceUseCase getApplicablePriceUseCase;
 
-    public ProductPricingController(ProductPriceService productPriceService) {
-        this.productPriceService = productPriceService;
+    public ProductPricingController(GetApplicablePriceUseCase getApplicablePriceUseCase) {
+        this.getApplicablePriceUseCase = getApplicablePriceUseCase;
     }
 
     @GetMapping
@@ -38,7 +38,7 @@ public class ProductPricingController {
         log.info("getApplicablePrice called with applicationDateTime={}, productId={}, brandId={}", applicationDateTime, productId,
                 brandId);
 
-        ProductPrice selectedPrice = productPriceService.getApplicablePrice(applicationDateTime, productId, brandId);
+        ProductPrice selectedPrice = getApplicablePriceUseCase.getApplicablePrice(applicationDateTime, productId, brandId);
 
         log.info("Selected price for productId={}, brandId={} -> {}", productId, brandId, selectedPrice);
 

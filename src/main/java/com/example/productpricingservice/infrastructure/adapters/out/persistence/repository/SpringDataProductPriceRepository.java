@@ -1,4 +1,4 @@
-package com.example.productpricingservice.infrastructure.adapter.persistence.repository;
+package com.example.productpricingservice.infrastructure.adapters.out.persistence.repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.example.productpricingservice.infrastructure.adapter.persistence.entity.ProductPriceEntity;
+import com.example.productpricingservice.infrastructure.adapters.out.persistence.entity.ProductPriceEntity;
 
 public interface SpringDataProductPriceRepository extends JpaRepository<ProductPriceEntity, Long> {
 

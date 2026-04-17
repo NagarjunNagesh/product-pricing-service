@@ -1,4 +1,4 @@
-package com.example.productpricingservice.application.rest;
+package com.example.productpricingservice.infrastructure.adapters.in.web;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

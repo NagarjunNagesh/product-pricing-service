@@ -4,23 +4,26 @@ Spring Boot REST service that returns the applicable product price for a given a
 
 ## Hexagonal + DDD Structure
 
-The project is organized following the [Baeldung style](https://www.baeldung.com/hexagonal-architecture-ddd-spring) of three layers:
+The project is organized as a ports-and-adapters architecture:
 
-- `domain` (inside): business model, policies, and domain ports
-- `application` (outside): REST API controllers and request/response handling
-- `infrastructure` (outside): Spring configuration and persistence adapters
+- `domain` (inside): business model, policies, and domain exceptions
+- `application` (inside): use case ports and use case orchestration
+- `infrastructure adapters` (outside): inbound web adapter and outbound persistence adapter
+- `infrastructure` (outside): Spring configuration/wiring
 
 Current package layout:
 
 - `com.example.productpricingservice.domain.model`
-- `com.example.productpricingservice.domain.port`
 - `com.example.productpricingservice.domain.service`
 - `com.example.productpricingservice.domain.exception`
-- `com.example.productpricingservice.application.rest`
-- `com.example.productpricingservice.application.rest.dto`
-- `com.example.productpricingservice.infrastructure.adapter.persistence`
-- `com.example.productpricingservice.infrastructure.adapter.persistence.entity`
-- `com.example.productpricingservice.infrastructure.adapter.persistence.repository`
+- `com.example.productpricingservice.application.port.in`
+- `com.example.productpricingservice.application.port.out`
+- `com.example.productpricingservice.application.usecase`
+- `com.example.productpricingservice.infrastructure.adapters.in.web`
+- `com.example.productpricingservice.infrastructure.adapters.in.web.dto`
+- `com.example.productpricingservice.infrastructure.adapters.out.persistence`
+- `com.example.productpricingservice.infrastructure.adapters.out.persistence.entity`
+- `com.example.productpricingservice.infrastructure.adapters.out.persistence.repository`
 - `com.example.productpricingservice.infrastructure.config`
 
 ## Request Flow Diagram
@@ -134,13 +137,13 @@ The in-memory H2 database is initialized at startup using:
 
 The swagger data to test based on the provided input requirements are as follows:
 
-| Test | Start Date              | Product ID | Brand ID | URL                        |
-|------|-------------------------|------------|----------|----------------------------|
-| 1    | 2020-06-14T10:00:00    | 35455      | 1        | http://127.0.0.1:8080/api/prices?applicationDateTime=2020-06-14T10:00&productId=35455&brandId=1 |
-| 2    | 2020-06-14T16:00:00    | 35455      | 1        | http://127.0.0.1:8080/api/prices?applicationDateTime=2020-06-14T16:00&productId=35455&brandId=1 |
-| 3    | 2020-06-14T21:00:00    | 35455      | 1        | http://127.0.0.1:8080/api/prices?applicationDateTime=2020-06-14T21:00&productId=35455&brandId=1 |
-| 4    | 2020-06-15T10:00:00    | 35455      | 1        | http://127.0.0.1:8080/api/prices?applicationDateTime=2020-06-15T10:00:00&productId=35455&brandId=1 |
-| 5    | 2020-06-16T21:00:00    | 35455      | 1        | http://127.0.0.1:8080/api/prices?applicationDateTime=2020-06-16T21:00:00&productId=35455&brandId=1 |
+| Test | Start Date          | Product ID | Brand ID | URL                                                                                                |
+| ---- | ------------------- | ---------- | -------- | -------------------------------------------------------------------------------------------------- |
+| 1    | 2020-06-14T10:00:00 | 35455      | 1        | http://127.0.0.1:8080/api/prices?applicationDateTime=2020-06-14T10:00&productId=35455&brandId=1    |
+| 2    | 2020-06-14T16:00:00 | 35455      | 1        | http://127.0.0.1:8080/api/prices?applicationDateTime=2020-06-14T16:00&productId=35455&brandId=1    |
+| 3    | 2020-06-14T21:00:00 | 35455      | 1        | http://127.0.0.1:8080/api/prices?applicationDateTime=2020-06-14T21:00&productId=35455&brandId=1    |
+| 4    | 2020-06-15T10:00:00 | 35455      | 1        | http://127.0.0.1:8080/api/prices?applicationDateTime=2020-06-15T10:00:00&productId=35455&brandId=1 |
+| 5    | 2020-06-16T21:00:00 | 35455      | 1        | http://127.0.0.1:8080/api/prices?applicationDateTime=2020-06-16T21:00:00&productId=35455&brandId=1 |
 
 Additional Corner Cases to Test
 

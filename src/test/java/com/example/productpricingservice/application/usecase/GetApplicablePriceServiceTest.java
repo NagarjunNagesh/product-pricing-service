@@ -1,4 +1,4 @@
-package com.example.productpricingservice.domain.service;
+package com.example.productpricingservice.application.usecase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -14,21 +14,22 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.example.productpricingservice.application.port.out.ProductPriceRepository;
 import com.example.productpricingservice.domain.exception.PriceNotFoundException;
 import com.example.productpricingservice.domain.model.ProductPrice;
-import com.example.productpricingservice.domain.port.ProductPriceRepository;
+import com.example.productpricingservice.domain.service.PriceSelectionPolicy;
 
-class DomainProductPriceServiceTest {
+class GetApplicablePriceServiceTest {
 
     private ProductPriceRepository repository;
     private PriceSelectionPolicy policy;
-    private DomainProductPriceService service;
+    private GetApplicablePriceService service;
 
     @BeforeEach
     void setUp() {
         repository = mock(ProductPriceRepository.class);
         policy = mock(PriceSelectionPolicy.class);
-        service = new DomainProductPriceService(repository, policy);
+        service = new GetApplicablePriceService(repository, policy);
     }
 
     @Test

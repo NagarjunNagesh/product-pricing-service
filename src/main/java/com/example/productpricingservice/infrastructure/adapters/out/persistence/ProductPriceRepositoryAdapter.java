@@ -1,4 +1,4 @@
-package com.example.productpricingservice.infrastructure.adapter.persistence;
+package com.example.productpricingservice.infrastructure.adapters.out.persistence;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -7,10 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.example.productpricingservice.application.port.out.ProductPriceRepository;
 import com.example.productpricingservice.domain.model.ProductPrice;
-import com.example.productpricingservice.domain.port.ProductPriceRepository;
-import com.example.productpricingservice.infrastructure.adapter.persistence.entity.ProductPriceEntity;
-import com.example.productpricingservice.infrastructure.adapter.persistence.repository.SpringDataProductPriceRepository;
+import com.example.productpricingservice.infrastructure.adapters.out.persistence.entity.ProductPriceEntity;
+import com.example.productpricingservice.infrastructure.adapters.out.persistence.repository.SpringDataProductPriceRepository;
 
 @Component
 public class ProductPriceRepositoryAdapter implements ProductPriceRepository {

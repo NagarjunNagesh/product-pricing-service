@@ -1,4 +1,4 @@
-package com.example.productpricingservice.infrastructure.adapter.persistence;
+package com.example.productpricingservice.infrastructure.adapters.out.persistence;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -12,8 +12,8 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import com.example.productpricingservice.domain.model.ProductPrice;
-import com.example.productpricingservice.infrastructure.adapter.persistence.entity.ProductPriceEntity;
-import com.example.productpricingservice.infrastructure.adapter.persistence.repository.SpringDataProductPriceRepository;
+import com.example.productpricingservice.infrastructure.adapters.out.persistence.entity.ProductPriceEntity;
+import com.example.productpricingservice.infrastructure.adapters.out.persistence.repository.SpringDataProductPriceRepository;
 
 class ProductPriceRepositoryAdapterTest {
 
