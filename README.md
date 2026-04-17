@@ -51,6 +51,16 @@ The Extraction of data for this project relies on two factors.
 
 This ensure that we retrieve the said product and brand and `start date <= provided date <= end date`
 
+## Data Retrieval Efficiency
+
+To satisfy the requirement of returning a single applicable result and improve scalability:
+
+- The persistence query filters by `brandId`, `productId`, and date range.
+- Results are ordered by `priority DESC` and `startDate DESC`.
+- The repository retrieves only the top candidate and maps one record to the domain model.
+
+This avoids loading and mapping all matching rows in memory, reducing DB transfer, application heap usage, and per-request processing time.
+
 ## API
 
 Endpoint:

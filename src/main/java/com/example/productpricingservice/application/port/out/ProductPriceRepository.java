@@ -1,11 +1,11 @@
 package com.example.productpricingservice.application.port.out;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Optional;
 
 import com.example.productpricingservice.domain.model.ProductPrice;
 
 public interface ProductPriceRepository {
 
-    List<ProductPrice> findApplicablePrices(LocalDateTime applicationDateTime, Long productId, Long brandId);
+    Optional<ProductPrice> findApplicablePrices(LocalDateTime applicationDateTime, Long productId, Long brandId);
 }

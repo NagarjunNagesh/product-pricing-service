@@ -18,8 +18,7 @@ public class BeanConfiguration {
 
     @Bean
     public GetApplicablePriceUseCase getApplicablePriceUseCase(
-            ProductPriceRepository productPriceRepository,
-            PriceSelectionPolicy priceSelectionPolicy) {
-        return new GetApplicablePriceService(productPriceRepository, priceSelectionPolicy);
+            ProductPriceRepository productPriceRepository) {
+        return new GetApplicablePriceService(productPriceRepository);
     }
 }

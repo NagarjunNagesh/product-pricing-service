@@ -1,7 +1,7 @@
 package com.example.productpricingservice.infrastructure.adapters.out.persistence;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,17 +23,15 @@ public class ProductPriceRepositoryAdapter implements ProductPriceRepository {
     }
 
     @Override
-    public List<ProductPrice> findApplicablePrices(LocalDateTime applicationDateTime, Long productId, Long brandId) {
+    public Optional<ProductPrice> findApplicablePrices(LocalDateTime applicationDateTime, Long productId,
+            Long brandId) {
         return springDataProductPriceRepository
-                .fetchProductPrice(
-                        brandId, productId, applicationDateTime, applicationDateTime)
-                .stream()
-                .map(this::toDomain)
-                .toList();
+                .findTopApplicablePrice(brandId, productId, applicationDateTime)
+                .map(this::toDomain);
     }
 
     private ProductPrice toDomain(ProductPriceEntity entity) {
-        log.debug("Mapping ProductPriceEntity {} to domain ProductPrice", entity);
+        log.info("Mapping ProductPriceEntity {} to domain ProductPrice", entity);
         return ProductPrice.builder()
                 .productId(entity.getProductId())
                 .brandId(entity.getBrandId())
