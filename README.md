@@ -126,6 +126,28 @@ The in-memory H2 database is initialized at startup using:
 - `src/main/resources/schema.sql`
 - `src/main/resources/data.sql`
 
+## Configuration Profiles
+
+The service uses Spring profiles to keep configuration optimized by environment:
+
+- `dev` (default): local development with H2 console and SQL logs enabled
+- `test`: deterministic test configuration used automatically during tests
+- `prod`: hardened defaults (no H2 console, no SQL logs, no auto schema creation)
+
+Profile files:
+
+- `src/main/resources/application.properties` (shared + default profile)
+- `src/main/resources/application-dev.properties`
+- `src/main/resources/application-test.properties`
+- `src/main/resources/application-prod.properties`
+- `src/test/resources/application.properties` (activates `test` profile for test runs)
+
+To run with a specific profile:
+
+```bash
+SPRING_PROFILES_ACTIVE=prod ./gradlew bootRun
+```
+
 
 ## Useful URLs
 
