@@ -197,6 +197,25 @@ Generated reports:
 - `build/reports/checkstyle/main.html`
 - `build/reports/checkstyle/test.html`
 
+## Version Control Standards
+
+This repository enforces version control standards through documentation and CI:
+
+- Contribution rules are defined in `CONTRIBUTING.md`.
+- PR titles are validated by `.github/workflows/pr-standards.yml` using Conventional Commits types.
+
+Recommended commit message format:
+
+```text
+type(scope): short summary
+```
+
+Example:
+
+```text
+feat(api): add request parameter validation
+```
+
 
 ## Useful URLs
 
