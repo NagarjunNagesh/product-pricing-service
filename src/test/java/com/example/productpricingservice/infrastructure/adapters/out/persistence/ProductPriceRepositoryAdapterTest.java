@@ -54,4 +54,19 @@ class ProductPriceRepositoryAdapterTest {
 
         verify(repo).findTopApplicablePrice(1L, 35455L, start);
     }
+
+    @Test
+    void returnsEmptyWhenNoEntityFound() {
+        SpringDataProductPriceRepository repo = mock(SpringDataProductPriceRepository.class);
+
+        LocalDateTime start = LocalDateTime.of(2020, 6, 14, 10, 0);
+        when(repo.findTopApplicablePrice(1L, 35455L, start)).thenReturn(Optional.empty());
+
+        ProductPriceRepositoryAdapter adapter = new ProductPriceRepositoryAdapter(repo);
+
+        Optional<ProductPrice> result = adapter.findApplicablePrices(start, 35455L, 1L);
+
+        assertTrue(result.isEmpty());
+        verify(repo).findTopApplicablePrice(1L, 35455L, start);
+    }
 }
