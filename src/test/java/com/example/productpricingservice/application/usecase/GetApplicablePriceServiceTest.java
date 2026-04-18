@@ -1,4 +1,4 @@
-package com.example.productpricingservice.domain.service;
+package com.example.productpricingservice.application.usecase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -8,31 +8,28 @@ import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.example.productpricingservice.application.port.out.ProductPriceRepository;
 import com.example.productpricingservice.domain.exception.PriceNotFoundException;
 import com.example.productpricingservice.domain.model.ProductPrice;
-import com.example.productpricingservice.domain.port.ProductPriceRepository;
 
-class DomainProductPriceServiceTest {
+class GetApplicablePriceServiceTest {
 
     private ProductPriceRepository repository;
-    private PriceSelectionPolicy policy;
-    private DomainProductPriceService service;
+    private GetApplicablePriceService service;
 
     @BeforeEach
     void setUp() {
         repository = mock(ProductPriceRepository.class);
-        policy = mock(PriceSelectionPolicy.class);
-        service = new DomainProductPriceService(repository, policy);
+        service = new GetApplicablePriceService(repository);
     }
 
     @Test
-    void shouldReturnSelectedPriceWhenRepositoryHasCandidates() {
+    void shouldReturnSelectedPriceWhenRepositoryHasCandidate() {
         LocalDateTime startDate = LocalDateTime.of(2020, 6, 14, 10, 0);
         Long productId = 35455L;
         Long brandId = 1L;
@@ -43,16 +40,12 @@ class DomainProductPriceServiceTest {
                 LocalDateTime.of(2020, 6, 14, 18, 30),
                 1, "35.50");
 
-        List<ProductPrice> candidates = List.of(expected);
-
-        when(repository.findApplicablePrices(startDate, productId, brandId)).thenReturn(candidates);
-        when(policy.selectApplicable(candidates)).thenReturn(Optional.of(expected));
+        when(repository.findApplicablePrices(startDate, productId, brandId)).thenReturn(Optional.of(expected));
 
         ProductPrice actual = service.getApplicablePrice(startDate, productId, brandId);
 
         assertEquals(expected, actual);
         verify(repository).findApplicablePrices(startDate, productId, brandId);
-        verify(policy).selectApplicable(candidates);
     }
 
     @Test
@@ -61,10 +54,7 @@ class DomainProductPriceServiceTest {
         Long productId = 35455L;
         Long brandId = 1L;
 
-        List<ProductPrice> empty = List.of();
-
-        when(repository.findApplicablePrices(startDate, productId, brandId)).thenReturn(empty);
-        when(policy.selectApplicable(empty)).thenReturn(Optional.empty());
+        when(repository.findApplicablePrices(startDate, productId, brandId)).thenReturn(Optional.empty());
 
         assertThrows(PriceNotFoundException.class,
                 () -> service.getApplicablePrice(startDate, productId, brandId));

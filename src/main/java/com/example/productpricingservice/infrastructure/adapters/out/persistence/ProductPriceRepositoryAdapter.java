@@ -1,16 +1,16 @@
-package com.example.productpricingservice.infrastructure.adapter.persistence;
+package com.example.productpricingservice.infrastructure.adapters.out.persistence;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.example.productpricingservice.application.port.out.ProductPriceRepository;
 import com.example.productpricingservice.domain.model.ProductPrice;
-import com.example.productpricingservice.domain.port.ProductPriceRepository;
-import com.example.productpricingservice.infrastructure.adapter.persistence.entity.ProductPriceEntity;
-import com.example.productpricingservice.infrastructure.adapter.persistence.repository.SpringDataProductPriceRepository;
+import com.example.productpricingservice.infrastructure.adapters.out.persistence.entity.ProductPriceEntity;
+import com.example.productpricingservice.infrastructure.adapters.out.persistence.repository.SpringDataProductPriceRepository;
 
 @Component
 public class ProductPriceRepositoryAdapter implements ProductPriceRepository {
@@ -23,17 +23,15 @@ public class ProductPriceRepositoryAdapter implements ProductPriceRepository {
     }
 
     @Override
-    public List<ProductPrice> findApplicablePrices(LocalDateTime applicationDateTime, Long productId, Long brandId) {
+    public Optional<ProductPrice> findApplicablePrices(LocalDateTime applicationDateTime, Long productId,
+            Long brandId) {
         return springDataProductPriceRepository
-                .fetchProductPrice(
-                        brandId, productId, applicationDateTime, applicationDateTime)
-                .stream()
-                .map(this::toDomain)
-                .toList();
+                .findTopApplicablePrice(brandId, productId, applicationDateTime)
+                .map(this::toDomain);
     }
 
     private ProductPrice toDomain(ProductPriceEntity entity) {
-        log.debug("Mapping ProductPriceEntity {} to domain ProductPrice", entity);
+        log.info("Mapping ProductPriceEntity {} to domain ProductPrice", entity);
         return ProductPrice.builder()
                 .productId(entity.getProductId())
                 .brandId(entity.getBrandId())

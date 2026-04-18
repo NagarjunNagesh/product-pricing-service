@@ -1,4 +1,4 @@
-package com.example.productpricingservice.application.rest.dto;
+package com.example.productpricingservice.infrastructure.adapters.in.web.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

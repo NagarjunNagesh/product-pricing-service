@@ -1,4 +1,4 @@
-package com.example.productpricingservice.infrastructure.adapter.persistence.entity;
+package com.example.productpricingservice.infrastructure.adapters.out.persistence.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
