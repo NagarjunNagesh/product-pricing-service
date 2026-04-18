@@ -158,6 +158,45 @@ To run with a specific profile:
 SPRING_PROFILES_ACTIVE=prod ./gradlew bootRun
 ```
 
+## Spring Boot Best Practices Applied
+
+The service includes the following Spring Boot hardening and maintainability practices:
+
+- Bean Validation for request parameters (`@Positive` for `productId` and `brandId`).
+- Centralized error handling for malformed, missing, and validation-failed request parameters.
+- Graceful shutdown enabled to reduce in-flight request loss during restarts.
+- Actuator endpoint exposure limited by default to `health` and `info`.
+- Environment-sensitive health details:
+  - `dev`: always shows health details for local diagnostics.
+  - `prod`: shows health details only when authorized.
+
+## Linting Guide
+
+The project uses Checkstyle with the configuration in `config/checkstyle/checkstyle.xml`.
+
+Run lint for main sources:
+
+```bash
+./gradlew checkstyleMain
+```
+
+Run lint for test sources:
+
+```bash
+./gradlew checkstyleTest
+```
+
+Run all quality checks (lint + tests + coverage tasks wired in Gradle):
+
+```bash
+./gradlew check
+```
+
+Generated reports:
+
+- `build/reports/checkstyle/main.html`
+- `build/reports/checkstyle/test.html`
+
 
 ## Useful URLs
 
