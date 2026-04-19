@@ -4,11 +4,10 @@ on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
 
-permissions:
-  pull-requests: read
-
 jobs:
   branch-name:
+    permissions:
+      pull-requests: read
     runs-on: ubuntu-latest
     steps:
       - name: Validate branch naming convention

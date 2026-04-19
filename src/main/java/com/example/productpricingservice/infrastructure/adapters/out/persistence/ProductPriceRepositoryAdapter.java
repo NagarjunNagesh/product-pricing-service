@@ -25,13 +25,17 @@ public class ProductPriceRepositoryAdapter implements ProductPriceRepository {
     @Override
     public Optional<ProductPrice> findApplicablePrices(LocalDateTime applicationDateTime, Long productId,
             Long brandId) {
+        log.info("Querying applicable price for brandId={}, productId={}, applicationDateTime={}",
+                brandId,
+                productId,
+                applicationDateTime);
         return springDataProductPriceRepository
                 .findTopApplicablePrice(brandId, productId, applicationDateTime)
                 .map(this::toDomain);
     }
 
     private ProductPrice toDomain(ProductPriceEntity entity) {
-        log.info("Mapping ProductPriceEntity {} to domain ProductPrice", entity);
+        log.debug("Mapping ProductPriceEntity id={} to domain ProductPrice", entity.getId());
         return ProductPrice.builder()
                 .productId(entity.getProductId())
                 .brandId(entity.getBrandId())
