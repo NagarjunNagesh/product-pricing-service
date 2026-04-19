@@ -1,5 +1,9 @@
 # Product Pricing Service
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=NagarjunNagesh_product-pricing-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=NagarjunNagesh_product-pricing-service)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=NagarjunNagesh_product-pricing-service&metric=coverage)](https://sonarcloud.io/summary/new_code?id=NagarjunNagesh_product-pricing-service)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=NagarjunNagesh_product-pricing-service&metric=bugs)](https://sonarcloud.io/summary/new_code?id=NagarjunNagesh_product-pricing-service)
+
 Spring Boot REST service that returns the applicable product price for a given application date, product, and brand.
 
 ## Hexagonal + DDD Structure
