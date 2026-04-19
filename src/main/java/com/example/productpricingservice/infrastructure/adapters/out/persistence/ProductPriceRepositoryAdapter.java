@@ -23,7 +23,7 @@ public class ProductPriceRepositoryAdapter implements ProductPriceRepository {
     }
 
     @Override
-    public Optional<ProductPrice> findApplicablePrices(LocalDateTime applicationDateTime, Long productId,
+    public Optional<ProductPrice> findApplicablePrice(LocalDateTime applicationDateTime, Long productId,
             Long brandId) {
         log.info("Querying applicable price for brandId={}, productId={}, applicationDateTime={}",
                 brandId,

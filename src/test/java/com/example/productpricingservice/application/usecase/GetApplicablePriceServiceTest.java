@@ -40,12 +40,12 @@ class GetApplicablePriceServiceTest {
                 LocalDateTime.of(2020, 6, 14, 18, 30),
                 1, "35.50");
 
-        when(repository.findApplicablePrices(startDate, productId, brandId)).thenReturn(Optional.of(expected));
+        when(repository.findApplicablePrice(startDate, productId, brandId)).thenReturn(Optional.of(expected));
 
         ProductPrice actual = service.getApplicablePrice(startDate, productId, brandId);
 
         assertEquals(expected, actual);
-        verify(repository).findApplicablePrices(startDate, productId, brandId);
+        verify(repository).findApplicablePrice(startDate, productId, brandId);
     }
 
     @Test
@@ -54,7 +54,7 @@ class GetApplicablePriceServiceTest {
         Long productId = 35455L;
         Long brandId = 1L;
 
-        when(repository.findApplicablePrices(startDate, productId, brandId)).thenReturn(Optional.empty());
+        when(repository.findApplicablePrice(startDate, productId, brandId)).thenReturn(Optional.empty());
 
         assertThrows(PriceNotFoundException.class,
                 () -> service.getApplicablePrice(startDate, productId, brandId));

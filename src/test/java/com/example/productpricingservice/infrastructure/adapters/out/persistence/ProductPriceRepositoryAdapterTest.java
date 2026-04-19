@@ -38,7 +38,7 @@ class ProductPriceRepositoryAdapterTest {
 
         ProductPriceRepositoryAdapter adapter = new ProductPriceRepositoryAdapter(repo);
 
-        Optional<ProductPrice> result = adapter.findApplicablePrices(start, 35455L, 1L);
+        Optional<ProductPrice> result = adapter.findApplicablePrice(start, 35455L, 1L);
 
         assertTrue(result.isPresent());
         ProductPrice p = result.get();
@@ -64,7 +64,7 @@ class ProductPriceRepositoryAdapterTest {
 
         ProductPriceRepositoryAdapter adapter = new ProductPriceRepositoryAdapter(repo);
 
-        Optional<ProductPrice> result = adapter.findApplicablePrices(start, 35455L, 1L);
+        Optional<ProductPrice> result = adapter.findApplicablePrice(start, 35455L, 1L);
 
         assertTrue(result.isEmpty());
         verify(repo).findTopApplicablePrice(1L, 35455L, start);
