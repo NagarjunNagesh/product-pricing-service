@@ -15,6 +15,7 @@ import org.springframework.web.context.WebApplicationContext;
 @SpringBootTest
 class ProductPricingControllerIT {
 
+        private static final String APPLICATION_DATE_TIME_ONE = "2020-06-14T10:00";
         private static final String PRICES_PATH = "/api/prices";
         private static final String APPLICATION_DATE_TIME_PARAM = "applicationDateTime";
         private static final String PRODUCT_ID_PARAM = "productId";
@@ -50,7 +51,7 @@ class ProductPricingControllerIT {
         @Test
         void shouldReturnBadRequestForNegativeProductId() throws Exception {
                 mockMvc.perform(get(PRICES_PATH)
-                                .param(APPLICATION_DATE_TIME_PARAM, "2020-06-14T10:00")
+                                .param(APPLICATION_DATE_TIME_PARAM, APPLICATION_DATE_TIME_ONE)
                                 .param(PRODUCT_ID_PARAM, "-1")
                                 .param(BRAND_ID_PARAM, BRAND_ID_1))
                                 .andExpect(status().isBadRequest())
@@ -60,7 +61,7 @@ class ProductPricingControllerIT {
         @Test
         void shouldReturnBadRequestForMissingRequiredParameter() throws Exception {
                 mockMvc.perform(get(PRICES_PATH)
-                                .param(APPLICATION_DATE_TIME_PARAM, "2020-06-14T10:00")
+                                .param(APPLICATION_DATE_TIME_PARAM, APPLICATION_DATE_TIME_ONE)
                                 .param(PRODUCT_ID_PARAM, PRODUCT_ID_35455))
                                 .andExpect(status().isBadRequest())
                                 .andExpect(jsonPath(CODE_JSON_PATH).value(INVALID_REQUEST))
@@ -71,7 +72,7 @@ class ProductPricingControllerIT {
         @Test
         void shouldReturnNotFoundWhenPriceMissing() throws Exception {
                 mockMvc.perform(get(PRICES_PATH)
-                                .param(APPLICATION_DATE_TIME_PARAM, "2020-06-14T10:00")
+                                .param(APPLICATION_DATE_TIME_PARAM, APPLICATION_DATE_TIME_ONE)
                                 .param(PRODUCT_ID_PARAM, BRAND_ID_1)
                                 .param(BRAND_ID_PARAM, BRAND_ID_1))
                                 .andExpect(status().isNotFound())
@@ -83,7 +84,7 @@ class ProductPricingControllerIT {
         void shouldReturnExpectedPricesForRequirementsScenarios() throws Exception {
                 // Test 1: 2020-06-14 10:00 -> priceList 1, price 35.50
                 mockMvc.perform(get(PRICES_PATH)
-                                .param(APPLICATION_DATE_TIME_PARAM, "2020-06-14T10:00")
+                                .param(APPLICATION_DATE_TIME_PARAM, APPLICATION_DATE_TIME_ONE)
                                 .param(PRODUCT_ID_PARAM, PRODUCT_ID_35455)
                                 .param(BRAND_ID_PARAM, BRAND_ID_1))
                                 .andExpect(status().isOk())
