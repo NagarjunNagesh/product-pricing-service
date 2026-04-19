@@ -25,37 +25,44 @@ import jakarta.validation.constraints.Positive;
 @RequestMapping("/api/prices")
 @Tag(name = "Prices", description = "Query applicable product prices by date, product, and brand")
 public class ProductPricingController {
-    private static final Logger log = LoggerFactory.getLogger(ProductPricingController.class);
+        private static final Logger log = LoggerFactory.getLogger(ProductPricingController.class);
 
-    private final GetApplicablePriceUseCase getApplicablePriceUseCase;
+        private final GetApplicablePriceUseCase getApplicablePriceUseCase;
 
-    public ProductPricingController(GetApplicablePriceUseCase getApplicablePriceUseCase) {
-        this.getApplicablePriceUseCase = getApplicablePriceUseCase;
-    }
+        public ProductPricingController(GetApplicablePriceUseCase getApplicablePriceUseCase) {
+                this.getApplicablePriceUseCase = getApplicablePriceUseCase;
+        }
 
-    @GetMapping
-    @Operation(summary = "Get the applicable price for product and brand on a given date")
-    public ProductPriceResponse getApplicablePrice(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime applicationDateTime,
-            @RequestParam @NotNull @Positive Long productId,
-            @RequestParam @NotNull @Positive Long brandId) {
-        log.info("getApplicablePrice called with applicationDateTime={}, productId={}, brandId={}", applicationDateTime,
-                productId,
-                brandId);
+        @GetMapping
+        @Operation(summary = "Get the applicable price for product and brand on a given date")
+        public ProductPriceResponse getApplicablePrice(
+                        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime applicationDateTime,
+                        @RequestParam @NotNull @Positive Long productId,
+                        @RequestParam @NotNull @Positive Long brandId) {
+                log.info("Received getApplicablePrice request with applicationDateTime={}, productId={}, brandId={}",
+                                applicationDateTime,
+                                productId,
+                                brandId);
 
-        ProductPrice selectedPrice = getApplicablePriceUseCase.getApplicablePrice(applicationDateTime, productId,
-                brandId);
+                ProductPrice selectedPrice = getApplicablePriceUseCase.getApplicablePrice(applicationDateTime,
+                                productId,
+                                brandId);
 
-        log.info("Selected price for productId={}, brandId={} -> {}", productId, brandId, selectedPrice);
+                log.info("Resolved price for productId={}, brandId={}, priceList={}, price={}, currency={}",
+                                productId,
+                                brandId,
+                                selectedPrice.priceList(),
+                                selectedPrice.price(),
+                                selectedPrice.currency());
 
-        return ProductPriceResponse.builder()
-                .productId(selectedPrice.productId())
-                .brandId(selectedPrice.brandId())
-                .priceList(selectedPrice.priceList())
-                .startDate(selectedPrice.startDate())
-                .endDate(selectedPrice.endDate())
-                .price(selectedPrice.price())
-                .currency(selectedPrice.currency())
-                .build();
-    }
+                return ProductPriceResponse.builder()
+                                .productId(selectedPrice.productId())
+                                .brandId(selectedPrice.brandId())
+                                .priceList(selectedPrice.priceList())
+                                .startDate(selectedPrice.startDate())
+                                .endDate(selectedPrice.endDate())
+                                .price(selectedPrice.price())
+                                .currency(selectedPrice.currency())
+                                .build();
+        }
 }

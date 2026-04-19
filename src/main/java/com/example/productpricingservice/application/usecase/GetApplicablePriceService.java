@@ -21,13 +21,13 @@ public class GetApplicablePriceService implements GetApplicablePriceUseCase {
 
         @Override
         public ProductPrice getApplicablePrice(LocalDateTime applicationDateTime, Long productId, Long brandId) {
-                log.info("Started fetching top-1 applicable price for applicationDateTime {}, productId {} and brandId {}",
+                log.debug("Fetching top-1 applicable price for applicationDateTime={}, productId={}, brandId={}",
                                 applicationDateTime,
                                 productId, brandId);
 
                 return productPriceRepository.findApplicablePrices(applicationDateTime, productId, brandId)
                                 .orElseThrow(() -> {
-                                        log.error("No applicable price found for product {} and brand {} at {}",
+                                        log.error("No applicable price found for productId={}, brandId={}, applicationDateTime={}",
                                                         productId, brandId,
                                                         applicationDateTime);
                                         return new PriceNotFoundException(
