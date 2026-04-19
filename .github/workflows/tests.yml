@@ -24,8 +24,8 @@ jobs:
       - name: Make Gradle wrapper executable
         run: chmod +x gradlew
 
-      - name: Run quality gate (lint + tests + coverage >= 80%)
-        run: ./gradlew clean check jacocoTestReport jacocoTestCoverageVerification --no-daemon
+      - name: Run quality gate (lint + pmdMain+pmdTest + tests + coverage >= 80%)
+        run: ./gradlew clean pmdMain pmdTest check jacocoTestReport jacocoTestCoverageVerification --no-daemon
 
       - name: Upload JaCoCo report
         if: always()
