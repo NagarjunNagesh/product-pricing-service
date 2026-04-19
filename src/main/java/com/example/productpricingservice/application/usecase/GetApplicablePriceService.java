@@ -25,7 +25,7 @@ public class GetApplicablePriceService implements GetApplicablePriceUseCase {
                                 applicationDateTime,
                                 productId, brandId);
 
-                return productPriceRepository.findApplicablePrices(applicationDateTime, productId, brandId)
+                return productPriceRepository.findApplicablePrice(applicationDateTime, productId, brandId)
                                 .orElseThrow(() -> {
                                         log.error("No applicable price found for productId={}, brandId={}, applicationDateTime={}",
                                                         productId, brandId,
