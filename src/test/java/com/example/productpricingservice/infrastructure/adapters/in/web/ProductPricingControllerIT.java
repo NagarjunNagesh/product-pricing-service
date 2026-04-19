@@ -58,6 +58,17 @@ class ProductPricingControllerIT {
         }
 
         @Test
+        void shouldReturnBadRequestForMissingRequiredParameter() throws Exception {
+                mockMvc.perform(get(PRICES_PATH)
+                                .param(APPLICATION_DATE_TIME_PARAM, "2020-06-14T10:00")
+                                .param(PRODUCT_ID_PARAM, PRODUCT_ID_35455))
+                                .andExpect(status().isBadRequest())
+                                .andExpect(jsonPath(CODE_JSON_PATH).value(INVALID_REQUEST))
+                                .andExpect(jsonPath(MESSAGE_JSON_PATH)
+                                                .value("Missing required parameter: " + BRAND_ID_PARAM));
+        }
+
+        @Test
         void shouldReturnNotFoundWhenPriceMissing() throws Exception {
                 mockMvc.perform(get(PRICES_PATH)
                                 .param(APPLICATION_DATE_TIME_PARAM, "2020-06-14T10:00")
