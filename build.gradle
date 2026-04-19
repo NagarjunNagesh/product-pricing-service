@@ -5,6 +5,14 @@ plugins {
 	id 'pmd'
 	id 'org.springframework.boot' version '4.0.5'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id "org.sonarqube" version "7.2.3.7755"
+}
+
+sonar {
+  properties {
+    property "sonar.projectKey", "NagarjunNagesh_product-pricing-service"
+    property "sonar.organization", "blitzbudget"
+  }
 }
 
 group = 'com.example'
@@ -96,6 +104,16 @@ jacocoTestReport {
 
 jacoco {
 	toolVersion = '0.8.12'
+}
+
+sonarqube {
+	properties {
+		property 'sonar.coverage.jacoco.xmlReportPaths', 'build/reports/jacoco/test/jacocoTestReport.xml'
+	}
+}
+
+tasks.named('sonarqube') {
+	dependsOn tasks.named('jacocoTestReport')
 }
 
 tasks.named('jacocoTestCoverageVerification') {
